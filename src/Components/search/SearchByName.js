@@ -1,19 +1,15 @@
 import React from 'react';
-// import LargeCorpData from '../../data/preprocessing/Bynumber/10000andover.json';
-import ALLDATA from './../../data/USA-E-verifed-employers.json'
+import ALLDATA from './../../data/USA-E-verifed-employers.json';
+
 const SearchByName = (props) => {
   console.log("searching");
   console.log(props.name);
-
-//   const result = LargeCorpData.filter((Employer) => {
-//     // Perform case-insensitive partial match
-//     return Employer.Employer.toLowerCase().includes(props.name.toLowerCase());
-//   });
 
   const result = ALLDATA.filter((Employer) => {
     // Perform case-insensitive partial match
     return Employer.Employer.toLowerCase().includes(props.name.toLowerCase());
   });
+
   console.log(result);
 
   const ResultUI = () => {
@@ -24,15 +20,18 @@ const SearchByName = (props) => {
     return (
       <div>
         <h2>Matching Employers:</h2>
-        <ul>
-          {result.map((employer, index) => (
-            <li key={index}>
-              <strong>Employer:</strong> {employer.Employer}
-          
-            </li>
-            
-          ))}
-        </ul>
+        {result.map((employer, index) => (
+          <div key={index}>
+            <h3>Employer {index + 1}:</h3>
+            <ul>
+              {Object.entries(employer).map(([key, value]) => (
+                <li key={key}>
+                  <strong>{key}:</strong> {value}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     );
   };

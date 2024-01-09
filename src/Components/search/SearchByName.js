@@ -4,6 +4,8 @@ import ALLDATA from './../../data/USA-E-verifed-employers.json';
 const SearchByName = (props) => {
   console.log("searching");
   console.log(props.name);
+  console.log(props.showDetails)
+  const ShowDetails = props.showDetails;
 
   const result = ALLDATA.filter((Employer) => {
     // Perform case-insensitive partial match
@@ -19,17 +21,18 @@ const SearchByName = (props) => {
 
     return (
       <div>
-        <h2>Matching Employers:</h2>
+        <h2>Matching Employers: {result.length}</h2>
         {result.map((employer, index) => (
           <div key={index}>
-            <h3>Employer {index + 1}:</h3>
-            <ul>
+            <h3>{index + 1}:{employer.Employer}</h3>
+           {ShowDetails && <ul>
               {Object.entries(employer).map(([key, value]) => (
                 <li key={key}>
                   <strong>{key}:</strong> {value}
                 </li>
               ))}
-            </ul>
+
+            </ul>}
           </div>
         ))}
       </div>

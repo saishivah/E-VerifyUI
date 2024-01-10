@@ -1,33 +1,35 @@
 import { useMatch } from "react-router-dom";
 import ALLDATA from "./../../data/USA-E-verifed-employers.json";
 import { useState } from "react";
-
+import './TopEmployers.css'
 function TopEmployers() {
   const match = useMatch("/Texas/:Top");
   const [showDetails, setShowDetails] = useState(false);
-  const [CurrentState, SetCurrentState] = useState("");
-  const [WorkForceSize,SetWorkForceSize] = useState("10000")
+  const [CurrentState, SetCurrentState] = useState("TX");
+  const [WorkForceSize, SetWorkForceSize] = useState("10000");
+  const [CurrentWorkForce, SetCurrentWorkForce] = useState("Select a WorkForce Size");
   const DropDownHandler = (event) => {
     SetCurrentState(event.target.value);
     // You can perform additional actions here, such as updating the state in a parent component or making an API call
   };
-  const WorkForceDropDownHandler = (event) =>{
-    let WorkForceSize =(event.target.value)
+  const WorkForceDropDownHandler = (event) => {
+    let WorkForceSize = event.target.value;
+    SetCurrentWorkForce(WorkForceSize)
 
     WorkForceSize = parseInt(WorkForceSize, 10); // Convert the substring back to a number
     WorkForceSize = WorkForceSize.toLocaleString("en-US");
-    SetWorkForceSize(WorkForceSize)
-
-  }
+    SetWorkForceSize(WorkForceSize);
+    
+  };
 
   console.log(match);
   console.log(match.params);
   let top = match.params.Top.substring(4);
-//   top = parseInt(top, 10); // Convert the substring back to a number
-//   top = top.toLocaleString("en-US");
-//   console.log("top is");
-//   console.log(top);
-//   console.log(CurrentState);
+  //   top = parseInt(top, 10); // Convert the substring back to a number
+  //   top = top.toLocaleString("en-US");
+  //   console.log("top is");
+  //   console.log(top);
+  //   console.log(CurrentState);
 
   console.log("top is");
   console.log(top);
@@ -52,8 +54,8 @@ function TopEmployers() {
     return (
       <div>
         <h2>
-          Matching Employers in {CurrentState} with Workforce {WorkForceSize} and over:{" "}
-          {TopEmployersDATA.length}
+          Matching Employers in {CurrentState} with Workforce {WorkForceSize}{" "}
+          and over: {TopEmployersDATA.length}
         </h2>
         <input type="checkbox" onChange={ShowDetailsHandler} />
         View Full Detail
@@ -79,17 +81,20 @@ function TopEmployers() {
 
   return (
     <div>
-        <select id="WorkForce" value={WorkForceSize} onChange={WorkForceDropDownHandler}>
-        <option value="">
-          Select a WorkForce Size
-        </option>
+      <select
+        id="WorkForce"
+        value={CurrentWorkForce}
+        onChange={WorkForceDropDownHandler}
+        className="WorkForceSelecter"
+      >
+        <option value="none">Select a WorkForce Size</option>
         <option value="5">5 and over</option>
         <option value="10">10 and over</option>
         <option value="100">100 and over</option>
         <option value="1000">1000 and over</option>
         <option value="10000">10000 and over</option>
       </select>
-      <select id="stateSelect" value={CurrentState} onChange={DropDownHandler}>
+      <select id="stateSelect" className="stateSelector" value={CurrentState} onChange={DropDownHandler}>
         <option value="" selected>
           Select a state
         </option>

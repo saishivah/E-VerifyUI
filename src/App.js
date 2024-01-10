@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SearchByName from './Components/search/SearchByName';
-
+import USStatesUI from './Components/USStatesUI';
+import Texas from './Components/States/Texas';
 import {
   BrowserRouter,
   Routes,
@@ -23,7 +24,7 @@ function App() {
           <Link to="/about">About</Link>
         </li>
         <li>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/USStates"> US States</Link>
         </li>
       </ul>
       </div>
@@ -34,7 +35,10 @@ function App() {
  {/* Ensure you are importing BrowserRouter from 'react-router-dom' */}
         <Routes>
           <Route path="/" element={<EmployerSearch />} />
-          {/* Add other routes as needed */}
+          <Route path="/USStates" element={<USStatesUI />} />
+    
+          <Route path="/Texas" element={<Texas />} />
+          <Route path="/Californina" element={<USStatesUI />} />
         </Routes>  
         </div>
       </BrowserRouter>
@@ -82,13 +86,7 @@ function EmployerSearch(){
 
 }
 
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
+
 
 function Dashboard() {
   return (

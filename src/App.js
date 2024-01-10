@@ -5,7 +5,7 @@ import SearchByName from "./Components/search/SearchByName";
 import USStatesUI from "./Components/USStatesUI";
 import Texas from "./Components/States/Texas";
 import TopEmployers from "./Components/Listings/TopEmployers";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { HashRouter as BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
   return (
@@ -30,11 +30,11 @@ function App() {
           <Route path="/" element={<EmployerSearch />} />
           {/* <Route path="/USStates" element={<USStatesUI />} /> */}
           <Route path="/TOPEmployers" element={<TopEmployers/>} />
-          <Route path="/Texas" element={<Texas />} />
+          {/* <Route path="./Texas" element={<Texas />} />
 
-          <Route path="/Texas/:Top100" element={<TopEmployers />} />
+          <Route path="./Texas/:Top100" element={<TopEmployers />} /> */}
 
-          <Route path="/Californina" element={<USStatesUI />} />
+          {/* <Route path="./Californina" element={<USStatesUI />} /> */}
         </Routes>
       </div>
     </BrowserRouter>

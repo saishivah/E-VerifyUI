@@ -16,9 +16,9 @@ function App() {
             <li>
               <Link to="/">Search</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/about">About</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/TOPEmployers"> US TOP Employers</Link>
             </li>

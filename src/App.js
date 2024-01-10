@@ -4,6 +4,7 @@ import './App.css';
 import SearchByName from './Components/search/SearchByName';
 import USStatesUI from './Components/USStatesUI';
 import Texas from './Components/States/Texas';
+import TopEmployers from './Components/Listings/TopEmployers';
 import {
   BrowserRouter,
   Routes,
@@ -38,6 +39,12 @@ function App() {
           <Route path="/USStates" element={<USStatesUI />} />
     
           <Route path="/Texas" element={<Texas />} />
+
+          <Route 
+          path="/Texas/:Top100" 
+          
+          element={<TopEmployers />} />
+          
           <Route path="/Californina" element={<USStatesUI />} />
         </Routes>  
         </div>

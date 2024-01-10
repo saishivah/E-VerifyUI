@@ -3,7 +3,7 @@ import ALLDATA from "./../../data/USA-E-verifed-employers.json";
 import { useState } from "react";
 import './TopEmployers.css'
 function TopEmployers() {
-  const match = useMatch("/Texas/:Top");
+
   const [showDetails, setShowDetails] = useState(false);
   const [CurrentState, SetCurrentState] = useState("TX");
   const [WorkForceSize, SetWorkForceSize] = useState("10000");
@@ -22,17 +22,9 @@ function TopEmployers() {
     
   };
 
-  console.log(match);
-  console.log(match.params);
-  let top = match.params.Top.substring(4);
-  //   top = parseInt(top, 10); // Convert the substring back to a number
-  //   top = top.toLocaleString("en-US");
-  //   console.log("top is");
-  //   console.log(top);
-  //   console.log(CurrentState);
+
 
   console.log("top is");
-  console.log(top);
   console.log(CurrentState);
 
   const TopEmployersDATA = ALLDATA.filter(
@@ -47,6 +39,9 @@ function TopEmployers() {
   };
 
   const TopEmployersDATAUI = () => {
+    if (TopEmployersDATA.length === 0 && CurrentWorkForce==="Select a WorkForce Size") {
+        return <div>Please select from above options</div>;
+      }
     if (TopEmployersDATA.length === 0) {
       return <div>No matching employers found</div>;
     }

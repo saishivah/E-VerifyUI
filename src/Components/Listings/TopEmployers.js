@@ -52,12 +52,12 @@ function TopEmployers() {
           Matching Employers in {CurrentState} with Workforce {WorkForceSize}{" "}
           and over: {TopEmployersDATA.length}
         </h2>
-        <input type="checkbox" onChange={ShowDetailsHandler} />
+        <input type="checkbox" onChange={ShowDetailsHandler}  checked={showDetails}/>
         View Full Detail
         {TopEmployersDATA.map((employer, index) => (
           <div key={index}>
             <h3>
-              {index + 1}:{employer.Employer}
+              {index + 1}: {employer.Employer}
             </h3>
             {showDetails && (
               <ul>
@@ -85,9 +85,12 @@ function TopEmployers() {
         <option value="none">Select a WorkForce Size</option>
         <option value="5">5 and over</option>
         <option value="10">10 and over</option>
+        <option value="20"> 20 to 99</option>
         <option value="100">100 and over</option>
         <option value="1000">1000 and over</option>
         <option value="10000">10000 and over</option>
+
+       
       </select>
       <select id="stateSelect" className="stateSelector" value={CurrentState} onChange={DropDownHandler}>
         <option value="" selected>

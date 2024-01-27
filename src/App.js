@@ -5,6 +5,7 @@ import SearchByName from "./Components/search/SearchByName";
 import USStatesUI from "./Components/USStatesUI";
 import Texas from "./Components/States/Texas";
 import TopEmployers from "./Components/Listings/TopEmployers";
+import AllEmployers from "./Components/LargeEmployers/AllEmployers";
 import { HashRouter as BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
             <li>
               <Link to="/TOPEmployers"> US TOP Employers</Link>
             </li>
+            <li>
+              <Link to="/All"> All</Link>
+            </li>
           </ul>
         </div>
 
@@ -33,7 +37,7 @@ function App() {
           {/* <Route path="./Texas" element={<Texas />} />
 
           <Route path="./Texas/:Top100" element={<TopEmployers />} /> */}
-
+          <Route path="/All" element={<AllEmployers/>} />
           {/* <Route path="./Californina" element={<USStatesUI />} /> */}
         </Routes>
       </div>

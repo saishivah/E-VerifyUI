@@ -1,0 +1,58 @@
+.all-employers-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.all-employers-container h1 {
+    text-align: center;
+    color: #333;
+}
+
+.all-employers-container select {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f4f4f4;
+}
+
+.button-apply, .button-delete {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button-apply {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button-apply:hover {
+    background-color: #45a049;
+}
+
+.button-delete {
+    background-color: #f44336;
+    color: white;
+    margin-top: 10px;
+}
+
+.button-delete:hover {
+    background-color: #d32f2f;
+}

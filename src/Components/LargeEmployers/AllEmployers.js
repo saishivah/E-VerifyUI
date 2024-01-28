@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import '../LargeEmployers/AllEmployers.css'
 function AllEmployers() {
   const [companies, setCompanies] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -78,7 +78,7 @@ function AllEmployers() {
   }
   
   return (
-    <div>
+    <div name="all-employers-container">
       <h1>Company List</h1>
       <div>
         <label htmlFor="category-select">Choose a Category: </label>
@@ -94,7 +94,7 @@ function AllEmployers() {
           ))}
         </select>
       </div>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -104,6 +104,7 @@ function AllEmployers() {
             <th>Secondary</th>
             <th>State</th>
             <th>Country</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -117,10 +118,10 @@ function AllEmployers() {
               <td>{company.state}</td>
               <td>{company.country}</td>
               <td>
-                <button onClick={() => handleApply(company.id)}>
+                <button  className="button-apply" onClick={() => handleApply(company.id)}>
                   {appliedJobs.includes(company.id) ? 'Applied' : 'Apply'}
                 </button>
-                <button onClick={() => handleDelete(company.id)}>Delete</button>
+                <button  className="button-delete" onClick={() => handleDelete(company.id)}>Delete</button>
                 </td>
             </tr>
           ))}

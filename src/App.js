@@ -7,6 +7,7 @@ import Texas from "./Components/States/Texas";
 import TopEmployers from "./Components/Listings/TopEmployers";
 import AllEmployers from "./Components/LargeEmployers/AllEmployers";
 import { HashRouter as BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import CreateCompany from "./Components/Insertion/CreateCompany";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
             <li>
               <Link to="/All"> All</Link>
             </li>
+            <li>
+              <Link to="/Create"> CreateCompany</Link>
+            </li>
           </ul>
         </div>
 
@@ -38,6 +42,7 @@ function App() {
 
           <Route path="./Texas/:Top100" element={<TopEmployers />} /> */}
           <Route path="/All" element={<AllEmployers/>} />
+          <Route path="/Create" element={<CreateCompany/>} />
           {/* <Route path="./Californina" element={<USStatesUI />} /> */}
         </Routes>
       </div>

@@ -5,14 +5,37 @@ function AllEmployers() {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [appliedJobs, setAppliedJobs] = useState(() => {
+    // Initialize with jobs from localStorage
+    return JSON.parse(localStorage.getItem("appliedJobs")) || [];
+  });
 
+  const handleDelete = (companyId) => {
+   console.log(companyId)
+    fetch(`http://localhost:8080/company/${companyId}/`, { 
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (response.ok) {
+        // Remove the company from the state to update the UI
+        setCompanies(companies.filter(company => company.id !== companyId));
+      } else {
+        // Handle errors here, e.g., show a notification
+        console.error('Error deleting company');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // Handle network errors here
+    });
+  };
   // Fetch available categories
   useEffect(() => {
     fetch("http://localhost:8080/company/available-categories/")
       .then((response) => response.json())
       .then((data) => {
-        setCategories(data); // assuming the endpoint returns an array of categories
-        setSelectedCategory(data[0]); // Set the first category as the default selected one
+        setCategories(data);
+        setSelectedCategory(data[0]);
       })
       .catch((error) => console.error("Error fetching categories: ", error));
   }, []);
@@ -21,7 +44,7 @@ function AllEmployers() {
   useEffect(() => {
     if (selectedCategory) {
       setIsLoading(true);
-      const url =
+      const url = 
         selectedCategory === "All"
           ? "http://localhost:8080/company/all/"
           : `http://localhost:8080/company/${selectedCategory}/`;
@@ -38,10 +61,22 @@ function AllEmployers() {
     }
   }, [selectedCategory]);
 
+  const handleApply = (jobId) => {
+    setAppliedJobs((prevAppliedJobs) => {
+      const isCurrentlyApplied = prevAppliedJobs.includes(jobId);
+      const newAppliedJobs = isCurrentlyApplied
+        ? prevAppliedJobs.filter(id => id !== jobId)
+        : [...prevAppliedJobs, jobId];
+        
+      localStorage.setItem("appliedJobs", JSON.stringify(newAppliedJobs));
+      return newAppliedJobs;
+    });
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
+  
   return (
     <div>
       <h1>Company List</h1>
@@ -77,10 +112,16 @@ function AllEmployers() {
               <td>{company.id}</td>
               <td>{company.name}</td>
               <td>{company.size}</td>
-              <td>{company.primaryindustry}</td>
+              <td>{company.primaryIndustry}</td>
               <td>{company.secondary}</td>
               <td>{company.state}</td>
               <td>{company.country}</td>
+              <td>
+                <button onClick={() => handleApply(company.id)}>
+                  {appliedJobs.includes(company.id) ? 'Applied' : 'Apply'}
+                </button>
+                <button onClick={() => handleDelete(company.id)}>Delete</button>
+                </td>
             </tr>
           ))}
         </tbody>

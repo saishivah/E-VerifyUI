@@ -1,0 +1,51 @@
+.create-company-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.create-company-container h2 {
+    color: #333;
+    text-align: center;
+}
+
+.create-company-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.create-company-form input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.create-company-form button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.create-company-form button:hover {
+    background-color: #0056b3;
+}
+
+.response-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e7e7e7;
+    border-radius: 4px;
+}
+
+.response-container pre {
+    overflow-x: auto;
+}

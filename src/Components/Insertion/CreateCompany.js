@@ -5,10 +5,11 @@ function CreateCompany() {
   const [company, setCompany] = useState({
     name: '',
     size: '',
-    primaryindustry: '',
+    primaryIndustry: '',
     secondary: '',
     state: '',
-    country: ''
+    country: '',
+    careersPage:''
   });
   const [response, setResponse] = useState(null);
 
@@ -36,10 +37,11 @@ function CreateCompany() {
       <form onSubmit={handleSubmit} className="create-company-form">
         <input type="text" name="name" placeholder="Name" value={company.name} onChange={handleChange} /><br />
         <input type="text" name="size" placeholder="Size" value={company.size} onChange={handleChange} /><br />
-        <input type="text" name="primaryindustry" placeholder="Primary Industry" value={company.primaryindustry} onChange={handleChange} /><br />
+        <input type="text" name="primaryIndustry" placeholder="Primary Industry" value={company.primaryIndustry} onChange={handleChange} /><br />
         <input type="text" name="secondary" placeholder="Secondary" value={company.secondary} onChange={handleChange} /><br />
         <input type="text" name="state" placeholder="State" value={company.state} onChange={handleChange} /><br />
         <input type="text" name="country" placeholder="Country" value={company.country} onChange={handleChange} /><br />
+        <input type="text" name="careersPage" placeholder="www.careerspageurl.com" value={company.careersPage} onChange={handleChange} /><br />
         <button type="submit">Create Company</button>
       </form>
 

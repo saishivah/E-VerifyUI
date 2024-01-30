@@ -29,7 +29,7 @@
     background-color: #f4f4f4;
 }
 
-.button-apply, .button-delete {
+.button-apply, .button-update, .button-delete {
     padding: 5px 10px;
     margin-right: 5px;
     border: none;
@@ -55,4 +55,10 @@
 
 .button-delete:hover {
     background-color: #d32f2f;
+}
+
+.button-update {
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 10px;
 }

@@ -8,6 +8,9 @@ import TopEmployers from "./Components/Listings/TopEmployers";
 import AllEmployers from "./Components/LargeEmployers/AllEmployers";
 import { HashRouter as BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import CreateCompany from "./Components/Insertion/CreateCompany";
+import DatabaseUpdateHome from "./Components/Insertion/DatabaseUpdateHome";
+import UpdateDB from "./Components/Insertion/UpdateDB";
+
 
 function App() {
   return (
@@ -28,7 +31,7 @@ function App() {
               <Link to="/All"> All</Link>
             </li>
             <li>
-              <Link to="/Create"> CreateCompany</Link>
+              <Link to="/DatabaseUpdate"> DatabaseUpdate</Link>
             </li>
           </ul>
         </div>
@@ -42,7 +45,10 @@ function App() {
 
           <Route path="./Texas/:Top100" element={<TopEmployers />} /> */}
           <Route path="/All" element={<AllEmployers/>} />
+          <Route path="/DatabaseUpdate" element={<DatabaseUpdateHome/>} />
+          <Route path="/All" element={<AllEmployers/>} />
           <Route path="/Create" element={<CreateCompany/>} />
+          {/* <Route path="/Update" element={<UpdateDB/>} /> */}
           {/* <Route path="./Californina" element={<USStatesUI />} /> */}
         </Routes>
       </div>

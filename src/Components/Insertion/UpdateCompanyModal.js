@@ -1,7 +1,12 @@
 import React,{ useEffect,useState } from "react";
 import '../Insertion/UpdateModal.css'
 function UpdateCompanyModal({ company, isOpen, onSave, onCancel }) {
-    const [formData, setFormData] = useState(company);
+
+   // Initialize formData state with sanitized company data
+   const [formData, setFormData] = useState(company);
+
+  
+
     console.log("model open")
     useEffect(() => {
       setFormData(company); // Update form data when the company prop changes
@@ -45,6 +50,61 @@ function UpdateCompanyModal({ company, isOpen, onSave, onCancel }) {
             value={formData.size}
             onChange={handleChange}
             className="form-control"
+          />
+          <label htmlFor="State">State:</label>
+            <input
+            type="text"
+            id="state"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+            className="form-control"
+          />
+          <label htmlFor="State">Primary Industry:</label>
+            <input
+            type="text"
+            id="Primary"
+            name="primaryIndustry"
+            value={formData.primaryIndustry}
+            onChange={handleChange}
+            className="form-control"
+          />
+           <label htmlFor="State">Secondary Industry:</label>
+            <input
+            type="text"
+            id="Secondary"
+            name="secondary"
+            value={formData.secondary}
+            onChange={handleChange}
+            className="form-control"
+          />
+           <label htmlFor="State">Country:</label>
+            <input
+            type="text"
+            id="Country"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            className="form-control"
+          />
+           <label htmlFor="carrerpage">CareersPage:</label>
+            <input
+            type="text"
+            id="careersPage"
+            name="careersPage"
+            value={formData.careersPage}
+            onChange={handleChange}
+            className="form-control"
+          />
+            <label htmlFor="carrerpage">Logourl:</label>
+             <input
+            type="text"
+            id="companyLogoUrl"
+            name="companyLogoUrl"
+            value={formData.companyLogoUrl}
+            onChange={handleChange}
+            className="form-control"
+            placeholder="upload an image for url"
           />
         </div>
         {/* Add more fields here */}

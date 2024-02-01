@@ -41,6 +41,7 @@
 .button-apply {
     background-color: #4CAF50;
     color: white;
+    width: 65px;
 }
 
 .button-apply:hover {
@@ -51,6 +52,7 @@
     background-color: #f44336;
     color: white;
     margin-top: 10px;
+    width: 65px;
 }
 
 .button-delete:hover {
@@ -61,4 +63,5 @@
     background-color: #4CAF50;
     color: white;
     margin-top: 10px;
+    width: 65px;
 }

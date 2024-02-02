@@ -11,7 +11,7 @@ function AllEmployers() {
   const [updatedCompany, setUpdatedCompany] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const ApplicationURL = {
-    'public-url': 'http://ec2-44-212-15-9.compute-1.amazonaws.com/company/',
+    'public-url': 'https://api.test.opt.glancejobs.com/company/',
     'local-url': 'http://localhost:8080/company/'
   }
   
@@ -23,7 +23,7 @@ function AllEmployers() {
   const handleSave = async (updatedData) => {
     try {
       const companyIdToUpdate = updatedData.id; // Get the company ID from the updated data
-      const response = await fetch(`http://localhost:8080/company/`, {
+      const response = await fetch(`${ApplicationURL['public-url']}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -97,7 +97,7 @@ function AllEmployers() {
   const handleDelete = async (companyId) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/company/${companyId}/`,
+        `${ApplicationURL['public-url']}${companyId}/`,
         {
           method: "DELETE",
         }

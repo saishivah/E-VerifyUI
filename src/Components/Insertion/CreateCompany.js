@@ -20,7 +20,7 @@ function CreateCompany() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8080/company/', company);
+      const res = await axios.post('https://api.test.opt.glancejobs.com/company/', company);
       setResponse(res.data);
       // Optionally reset form here
     } catch (error) {

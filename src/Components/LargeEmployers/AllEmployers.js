@@ -1,153 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react"; // Combined import statement
 import "../LargeEmployers/AllEmployers.css";
-import UpdateCompanyModal from "../Insertion/UpdateCompanyModal";
-import { Link } from "react-router-dom";
+
 function AllEmployers() {
   const [companies, setCompanies] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [totalResults, setTotalResults] = useState(0);
-  const [updatedCompany, setUpdatedCompany] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const ApplicationURL = {
-    'public-url': 'https://api.test.opt.glancejobs.com/company/',
-    'local-url': 'http://localhost:8080/company/'
-  }
-  
   const [appliedJobs, setAppliedJobs] = useState(() => {
-    // Initialize with jobs from localStorage
     return JSON.parse(localStorage.getItem("appliedJobs")) || [];
   });
 
-  const handleSave = async (updatedData) => {
-    try {
-      const companyIdToUpdate = updatedData.id; // Get the company ID from the updated data
-      const response = await fetch(`${ApplicationURL['public-url']}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedData), // Convert the updated data to JSON format
-      });
+  const ApplicationURL = useRef({
+    'public-url': 'https://api.test.opt.glancejobs.com/company/',
+    'local-url': 'http://localhost:8080/company/'
+  });
 
-      if (response.ok) {
-        // Handle a successful update, e.g., show a success message
-        console.log("Company updated successfully");
-        // Update the companies state with the new data
-        const updatedCompanies = companies.map((company) => {
-          if (company.id === companyIdToUpdate) {
-            return updatedData; // Replace the updated company data
+  useEffect(() => {
+    const fetchCategories = () => {
+      fetch(`${ApplicationURL.current['public-url']}available-categories/`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch categories');
           }
-          return company;
-        });
-        setCompanies(updatedCompanies);
-        setIsModalOpen(false);
-      } else {
-        // Handle errors here, e.g., show an error message
-        console.error("Error updating company");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle network errors here
-    }
-  };
-
-  const handleCancel = () => {
-    // Specific cancel logic for this context
-
-    // Close the modal
-    setIsModalOpen(false);
-
-    // Optionally, you can reset any form fields to their original values here if needed
-    setUpdatedCompany(null); // Reset the updated company data
-
-    // You can also perform any other actions related to cancellation
-  };
-
-  const handleUpdate = (companyId) => {
-    const companyToUpdate = companies.find(
-      (company) => company.id === companyId
-    );
-    const sanitizedCompany = sanitizeCompanyData(companyToUpdate);
-    console.log(sanitizedCompany);
-    setUpdatedCompany(sanitizedCompany);
-    setIsModalOpen(true);
-  };
-
-  const sanitizeCompanyData = (data) => {
-    const defaultValues = {
-      id: "",
-      name: "",
-      size: "",
-      primaryIndustry: "",
-      secondary: "",
-      state: "",
-      country: "",
-      careersPage: "",
-      companyLogoUrl: "",
-    };
-
-    return Object.keys(defaultValues).reduce((acc, key) => {
-      acc[key] = data[key] == null ? defaultValues[key] : data[key];
-      return acc;
-    }, {});
-  };
-
-  const handleDelete = async (companyId) => {
-    try {
-      const response = await fetch(
-        `${ApplicationURL['public-url']}${companyId}/`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      if (response.ok) {
-        // Remove the company from the state to update the UI
-        setCompanies(companies.filter((company) => company.id !== companyId));
-      } else {
-        // Handle errors here, e.g., show a notification
-        console.error("Error deleting company");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle network errors here
-    }
-  };
-  // Fetch available categories
-  useEffect(() => {
-    fetch(`${ApplicationURL['public-url']}available-categories/`)
-      .then((response) => response.json())
-      .then((data) => {
-        let withAll = ["All", ...data];
-        setCategories(withAll);
-        setSelectedCategory(data[0]);
-      })
-      .catch((error) => console.error("Error fetching categories: ", error));
-  }, []);
-
-  // Fetch companies based on the selected category
-  // Fetch companies based on the selected category
-  useEffect(() => {
-    if (selectedCategory) {
-      setIsLoading(true);
-      const url = selectedCategory === "All"
-        ? `${ApplicationURL['public-url']}all/`
-        : `${ApplicationURL['public-url']}${selectedCategory}/`;
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          setCompanies(data.companies);
-          setTotalResults(data.count);
-          setIsLoading(false);
+          return response.json();
         })
-        .catch((error) => {
-          console.error("Error fetching companies: ", error);
-          setIsLoading(false);
-        });
-    }
-  }, [selectedCategory]);
+        .then((data) => {
+          let withAll = ["All", ...data];
+          setCategories(withAll);
+          setSelectedCategory(data[0]);
+        })
+        .catch((error) => console.error("Error fetching categories: ", error));
+    };
+  
+    fetchCategories();
+  }, []); // Dependency array remains empty since useRef does not trigger re-renders
+  
+  useEffect(() => {
+    const fetchCompanies = () => {
+      if (selectedCategory) {
+        setIsLoading(true);
+        const url = selectedCategory === "All"
+          ? `${ApplicationURL.current['public-url']}all/`
+          : `${ApplicationURL.current['public-url']}${selectedCategory}/`;
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Failed to fetch companies');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setCompanies(data.companies);
+            setTotalResults(data.count);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error("Error fetching companies: ", error);
+            setIsLoading(false);
+          });
+      }
+    };
+  
+    fetchCompanies();
+  }, [selectedCategory]); // selectedCategory is a valid dependency here
 
   const handleApply = (jobId) => {
     setAppliedJobs((prevAppliedJobs) => {
@@ -180,7 +96,7 @@ function AllEmployers() {
               {category}
             </option>
           ))}
-        </select>{" "}
+        </select> {" "}
         Results:{totalResults}
       </div>
       <table className="table">
@@ -220,18 +136,18 @@ function AllEmployers() {
                   "Not available"
                 )}
               </td>
-   </tr>
+              <td>
+                <button
+                  className="button-apply"
+                  onClick={() => handleApply(company.id)}
+                >
+                  {appliedJobs.includes(company.id) ? "Applied" : "Apply"}
+                </button>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
-      {isModalOpen && (
-        <UpdateCompanyModal
-          company={updatedCompany}
-          isOpen={isModalOpen}
-          onSave={handleSave} // Define this function for saving updates
-          onCancel={handleCancel} // Define this function for canceling
-        />
-      )}
     </div>
   );
 }

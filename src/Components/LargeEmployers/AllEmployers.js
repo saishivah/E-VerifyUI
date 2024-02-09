@@ -220,27 +220,7 @@ function AllEmployers() {
                   "Not available"
                 )}
               </td>
-              <td>
-                <button
-                  className="button-apply"
-                  onClick={() => handleApply(company.id)}
-                >
-                  {appliedJobs.includes(company.id) ? "Applied" : "Apply"}
-                </button>
-                <button
-                  className="button-delete"
-                  onClick={() => handleDelete(company.id)}
-                >
-                  Delete
-                </button>
-                <button
-                  className="button-update"
-                  onClick={() => handleUpdate(company.id)}
-                >
-                  Update
-                </button>
-              </td>
-            </tr>
+   </tr>
           ))}
         </tbody>
       </table>
